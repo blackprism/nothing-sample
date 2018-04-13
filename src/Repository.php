@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Blackprism\NothingSample;
 
 use Blackprism\Nothing\Hydrator;
@@ -24,7 +23,7 @@ class Repository
         RowConverter\UserWithBook $rowConverterUserWithBook,
         UserWithBook $userWithBookMapper
     ) {
-        $this->connection              = $connection;
+        $this->connection               = $connection;
         $this->cachePool                = $cachePool;
         $this->hydrator                 = $hydrator;
         $this->rowConverterUserWithBook = $rowConverterUserWithBook;
@@ -60,7 +59,11 @@ class Repository
 
     private function hydrateUsersWithBook($rows)
     {
-        $this->hydrator->rowConverterIs($this->rowConverterUserWithBook->getRowConverter());
+        $this->hydrator->rowConverterIs(
+            $this->rowConverterUserWithBook->getRowConverter(
+                $this->connection->getDatabasePlatform()
+            )
+        );
         return $this->hydrator->map($rows, [], $this->userWithBookMapper);
     }
 

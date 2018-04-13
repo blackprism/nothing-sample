@@ -3,20 +3,19 @@
 namespace Blackprism\NothingSample\RowConverter;
 
 use Blackprism\Nothing\RowConverter;
+use Doctrine\DBAL\Types\Type;
 
 class UserWithBook
 {
-    public function getRowConverter()
+    public function __construct()
     {
-        $typeInt = new FieldInt();
-        $typeString = new FieldString();
+        Type::addType('prefixed_string', PrefixStringType::class);
+    }
 
-        $rowConvertor = new RowConverter();
-        $rowConvertor->registerField('book_id', $typeInt);
-        $rowConvertor->registerField('user_id', $typeInt);
-        $rowConvertor->registerField('author_id', $typeInt);
-        $rowConvertor->registerField('book_name', $typeString);
-        $rowConvertor->registerField('user_name', $typeString);
+    public function getRowConverter($connection)
+    {
+        $rowConvertor = new RowConverter($connection);
+        $rowConvertor->registerType('book_name', 'prefixed_string');
 
         return $rowConvertor;
     }

@@ -1,9 +1,8 @@
 <?php
 
-namespace pidno\test;
+namespace Blackprism\NothingSample;
 
 use Blackprism\NothingSample\Hydrator\UserWithBook;
-use Blackprism\NothingSample\Repository;
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Blackprism\NothingSample\RowConverter;
 use Blackprism\Nothing\Hydrator;

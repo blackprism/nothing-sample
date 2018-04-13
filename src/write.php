@@ -1,6 +1,6 @@
 <?php
 
-namespace pidno\test;
+use Blackprism\NothingSample;
 
 use Blackprism\NothingSample\Entity\Author;
 use Doctrine\DBAL\Connection;
