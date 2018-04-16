@@ -15,9 +15,9 @@ class UserWithBook
 
     public function getRowConverter(AbstractPlatform $connection): RowConverter
     {
-        $rowConvertor = new RowConverter($connection);
-        $rowConvertor->registerType('book_name', 'prefixed_string');
+        $rowConverter = new RowConverter($connection);
+        $rowConverter->registerType('book_name', 'prefixed_string');
 
-        return $rowConvertor;
+        return $rowConverter;
     }
 }
