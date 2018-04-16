@@ -66,12 +66,9 @@ class Repository
      */
     private function hydrateUsersWithBook(iterable $rows)
     {
-        $this->hydrator->rowConverterIs(
-            $this->rowConverterUserWithBook->getRowConverter(
-                $this->connection->getDatabasePlatform()
-            )
-        );
-        return $this->hydrator->map($rows, [], $this->userWithBookMapper);
+        $rowConverter = $this->rowConverterUserWithBook->getRowConverter($this->connection->getDatabasePlatform());
+
+        return $this->hydrator->map($rows, [], $this->userWithBookMapper, $rowConverter);
     }
 
     /**
