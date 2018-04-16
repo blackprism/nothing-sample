@@ -3,6 +3,7 @@
 namespace Blackprism\NothingSample\RowConverter;
 
 use Blackprism\Nothing\RowConverter;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 
 class UserWithBook
@@ -12,7 +13,7 @@ class UserWithBook
         Type::addType('prefixed_string', PrefixStringType::class);
     }
 
-    public function getRowConverter($connection)
+    public function getRowConverter(AbstractPlatform $connection): RowConverter
     {
         $rowConvertor = new RowConverter($connection);
         $rowConvertor->registerType('book_name', 'prefixed_string');

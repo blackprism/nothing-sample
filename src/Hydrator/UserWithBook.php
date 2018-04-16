@@ -9,6 +9,12 @@ use Blackprism\NothingSample\Entity\User;
 
 class UserWithBook implements Mapper
 {
+    /**
+     * @param array $row
+     * @param mixed $data
+     *
+     * @return mixed
+     */
     public function map(array $row, $data)
     {
         $book = new Book(

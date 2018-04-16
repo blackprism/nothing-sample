@@ -16,9 +16,9 @@ class Book
         $this->author = $author;
     }
 
-    public function getId()
+    public function getId(): int
     {
-        return (int) $this->id;
+        return $this->id;
     }
 
     public function userIs(User $user)
@@ -26,17 +26,17 @@ class Book
         $this->user = $user;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function getAuthor()
+    public function getAuthor(): ?Author
     {
         return $this->author;
     }

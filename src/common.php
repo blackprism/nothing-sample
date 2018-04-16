@@ -1,6 +1,6 @@
 <?php
 
-namespace pidno\test;
+namespace Blackprism\NothingSample;
 
 use Doctrine\DBAL\DriverManager;
 

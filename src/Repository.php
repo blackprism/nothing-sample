@@ -57,7 +57,14 @@ class Repository
         return $queryBuilder->execute();
     }
 
-    private function hydrateUsersWithBook($rows)
+    /**
+     * @param iterable $rows
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     *
+     * @return iterable
+     */
+    private function hydrateUsersWithBook(iterable $rows)
     {
         $this->hydrator->rowConverterIs(
             $this->rowConverterUserWithBook->getRowConverter(
@@ -68,9 +75,10 @@ class Repository
     }
 
     /**
+     * @throws \Doctrine\DBAL\DBALException
      * @throws \Psr\SimpleCache\InvalidArgumentException
      *
-     * @return \Doctrine\DBAL\Driver\Statement|int|mixed
+     * @return iterable
      */
     public function getUsersWithBookAndCache()
     {
