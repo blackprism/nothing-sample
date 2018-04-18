@@ -10,7 +10,7 @@ use Blackprism\Nothing\Hydrator;
 $connection = require __DIR__ . '/common.php';
 
 $cachePool = new ArrayCachePool();
-$repository = new Repository($connection, $cachePool, new Hydrator(), new RowConverter\UserWithBook(), new UserWithBook());
+$repository = new Repository($connection, $cachePool, new Hydrator(), new UserWithBook());
 
 $repository->getUsersWithBookAndCache();
 $collection = $repository->getUsersWithBookAndCache();

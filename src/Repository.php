@@ -13,20 +13,17 @@ class Repository
     private $connection;
     private $cachePool;
     private $hydrator;
-    private $rowConverterUserWithBook;
     private $userWithBookMapper;
 
     public function __construct(
         Connection $connection,
         CacheInterface $cachePool,
         Hydrator $hydrator,
-        RowConverter\UserWithBook $rowConverterUserWithBook,
         UserWithBook $userWithBookMapper
     ) {
         $this->connection               = $connection;
         $this->cachePool                = $cachePool;
         $this->hydrator                 = $hydrator;
-        $this->rowConverterUserWithBook = $rowConverterUserWithBook;
         $this->userWithBookMapper       = $userWithBookMapper;
     }
 
@@ -66,9 +63,7 @@ class Repository
      */
     private function hydrateUsersWithBook(iterable $rows)
     {
-        $rowConverter = $this->rowConverterUserWithBook->getRowConverter($this->connection->getDatabasePlatform());
-
-        return $this->hydrator->map($rows, [], $this->userWithBookMapper, $rowConverter);
+        return $this->hydrator->map($rows, [], $this->userWithBookMapper);
     }
 
     /**
