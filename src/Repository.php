@@ -2,7 +2,6 @@
 
 namespace Blackprism\NothingSample;
 
-use Blackprism\Nothing\Hydrator;
 use Blackprism\NothingSample\Hydrator\UserWithBook;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -12,19 +11,13 @@ class Repository
 {
     private $connection;
     private $cachePool;
-    private $hydrator;
     private $userWithBookMapper;
 
-    public function __construct(
-        Connection $connection,
-        CacheInterface $cachePool,
-        Hydrator $hydrator,
-        UserWithBook $userWithBookMapper
-    ) {
-        $this->connection               = $connection;
-        $this->cachePool                = $cachePool;
-        $this->hydrator                 = $hydrator;
-        $this->userWithBookMapper       = $userWithBookMapper;
+    public function __construct(Connection $connection, CacheInterface $cachePool, UserWithBook $userWithBookMapper)
+    {
+        $this->connection         = $connection;
+        $this->cachePool          = $cachePool;
+        $this->userWithBookMapper = $userWithBookMapper;
     }
 
     public function getUsersWithBook()
@@ -63,7 +56,7 @@ class Repository
      */
     private function hydrateUsersWithBook(iterable $rows)
     {
-        return $this->hydrator->map($rows, [], $this->userWithBookMapper);
+        return $this->userWithBookMapper->map($rows);
     }
 
     /**

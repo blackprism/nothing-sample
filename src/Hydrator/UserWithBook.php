@@ -2,14 +2,28 @@
 
 namespace Blackprism\NothingSample\Hydrator;
 
-use Blackprism\Nothing\Hydrator\Mapper;
 use Blackprism\NothingSample\Entity\Author;
 use Blackprism\NothingSample\Entity\Book;
 use Blackprism\NothingSample\Entity\User;
 
-class UserWithBook implements Mapper
+class UserWithBook
 {
-    public function map(iterable $row, iterable $data): iterable
+    /**
+     * @param iterable $rows
+     *
+     * @return \ArrayObject
+     */
+    public function map(iterable $rows): \ArrayObject
+    {
+        $collection = new \ArrayObject();
+        foreach ($rows as $row) {
+            $this->mapRow($row, $collection);
+        }
+
+        return $collection;
+    }
+
+    private function mapRow(iterable $row, \ArrayObject $collection)
     {
         $book = new Book(
             $row['book_id'],
@@ -18,11 +32,9 @@ class UserWithBook implements Mapper
         );
 
         if (isset($data[$row['user_id']]) === false) {
-            $data[$row['user_id']] = new User($row['user_id'], $row['user_name']);
+            $collection[$row['user_id']] = new User($row['user_id'], $row['user_name']);
         }
 
-        $data[$row['user_id']]->giveBook($book);
-
-        return $data;
+        $collection[$row['user_id']]->giveBook($book);
     }
 }
